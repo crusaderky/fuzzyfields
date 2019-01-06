@@ -1,12 +1,18 @@
-.. currentmodule:: TEMPLATE
+.. currentmodule:: validators
 
 What's New
 ==========
 
-.. _whats-new.0.1.0:
+.. _whats-new.2.0.0:
 
-v0.1.0 (TODO YYYY-MM-DD)
-------------------------
+v2.0.0 (Unreleased)
+-------------------
+Released to the Open Source community.
+Overhauled design; use validators as class properties.
 
-Initial release.
-TODO add as needed
+
+.. _whats-new.1.0.0:
+
+v1.0.0 (2014-TODO)
+------------------
+Internal Legal & General release

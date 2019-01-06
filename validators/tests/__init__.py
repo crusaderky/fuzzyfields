@@ -36,5 +36,5 @@ def _import_or_skip(modname, minversion=None):
     return has, func
 
 
-# TODO: optional dependencies here
 has_numpy, requires_numpy = _import_or_skip('numpy')
+has_pandas, requires_pandas = _import_or_skip('pandas')
