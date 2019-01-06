@@ -1,4 +1,4 @@
-validators: TODO description
+fuzzyfields: TODO description
 ============================
 
 TODO
@@ -7,12 +7,12 @@ TODO
 
    installing
    whats-new
-   api/validators
+   api/fuzzyfields
 
 
 License
 -------
 
-validators is available under the open source `Apache License`__.
+fuzzyfields is available under the open source `Apache License`__.
 
 __ http://www.apache.org/licenses/LICENSE-2.0.html

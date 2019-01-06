@@ -35,14 +35,14 @@ install:
 
 script:
   - if [[ "$CONDA_ENV" != "flake8" ]]; then
-      python -c "import validators";
+      python -c "import fuzzyfields";
     fi
   - if [[ "$CONDA_ENV" == "docs" ]]; then
       sphinx-build -n -j auto -b html -d _build/doctrees doc _build/html;
     elif [[ "$CONDA_ENV" == "flake8" ]]; then
       flake8;
     else
-      py.test validators --cov=validators --cov-config ci/.coveragerc --cov-report term-missing --verbose $EXTRA_FLAGS;
+      py.test fuzzyfields --cov=fuzzyfields --cov-config ci/.coveragerc --cov-report term-missing --verbose $EXTRA_FLAGS;
     fi
 after_success:
   - coveralls

@@ -15,10 +15,10 @@ TODO mandatory?
 Testing
 -------
 
-To run the test suite after installing validators, first install (via pypi or conda)
+To run the test suite after installing fuzzyfields, first install (via pypi or conda)
 
 - `py.test <https://pytest.org>`__: Simple unit testing library
 
 and run
-``py.test --pyargs validators``.
+``py.test --pyargs fuzzyfields``.
 

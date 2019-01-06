@@ -1,4 +1,4 @@
-.. currentmodule:: validators
+.. currentmodule:: fuzzyfields
 
 What's New
 ==========
@@ -8,7 +8,7 @@ What's New
 v2.0.0 (Unreleased)
 -------------------
 Released to the Open Source community.
-Overhauled design; use validators as class properties.
+Overhauled design; use fuzzyfields as class properties.
 
 
 .. _whats-new.1.0.0:

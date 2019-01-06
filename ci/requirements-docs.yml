@@ -1,4 +1,4 @@
-name: validators-docs
+name: fuzzyfields-docs
 channels:
   # conda-forge and readthedocs are hosted by the same cloud provider, so
   # using conda-forge instead of anaconda speeds the download up and prevents

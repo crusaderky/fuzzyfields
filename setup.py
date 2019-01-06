@@ -13,11 +13,11 @@ VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 QUALIFIER = ''
 
 
-DISTNAME = 'validators'
+DISTNAME = 'fuzzyfields'
 LICENSE = 'Apache'
 AUTHOR = 'crusaderky'
 AUTHOR_EMAIL = 'crusaderky@gmail.com'
-URL = 'https://github.com/crusaderky/validators'
+URL = 'https://github.com/crusaderky/fuzzyfields'
 CLASSIFIERS = [
     'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: Apache Software License',
@@ -36,7 +36,7 @@ INSTALL_REQUIRES = [
 ]
 TESTS_REQUIRE = ['pytest >= 3.6']
 
-DESCRIPTION = "validators"
+DESCRIPTION = "fuzzyfields"
 LONG_DESCRIPTION = """
 
 """  # noqa
@@ -64,10 +64,10 @@ if not ISRELEASED:
 
     if pipe is None or pipe.returncode != 0:
         # no git, or not in git dir
-        if os.path.exists('validators/version.py'):
+        if os.path.exists('fuzzyfields/version.py'):
             warnings.warn(
                 "WARNING: Couldn't get git revision,"
-                " using existing validators/version.py")
+                " using existing fuzzyfields/version.py")
             write_version = False
         else:
             warnings.warn(
@@ -102,7 +102,7 @@ short_version = '%s'
 """
     if not filename:
         filename = os.path.join(
-            os.path.dirname(__file__), 'validators', 'version.py')
+            os.path.dirname(__file__), 'fuzzyfields', 'version.py')
 
     a = open(filename, 'w')
     try:
@@ -126,4 +126,4 @@ setup(name=DISTNAME,
       tests_require=TESTS_REQUIRE,
       url=URL,
       packages=find_packages(),
-      package_data={'validators': ['tests/data/*']})
+      package_data={'fuzzyfields': ['tests/data/*']})

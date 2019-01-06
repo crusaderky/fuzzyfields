@@ -1,5 +1,5 @@
-validators
+fuzzyfields
 ========
 TODO
 
-Full documentation at http://validators.readthedocs.io/
+Full documentation at http://fuzzyfields.readthedocs.io/

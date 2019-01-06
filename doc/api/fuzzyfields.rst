@@ -1,9 +1,9 @@
-Validators
-==========
+fuzzyfields
+===========
 
 TODO
 
-.. automodule:: validators.validators
+.. automodule:: fuzzyfields.fuzzyfields
     :members:
     :undoc-members:
     :show-inheritance:
