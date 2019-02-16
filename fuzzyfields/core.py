@@ -1,7 +1,7 @@
 import decimal
 import math
 import pickle
-from typing import Any
+from typing import Any, Union
 from .errors import MissingFieldError, DuplicateError
 
 NA_VALUES = {
@@ -73,30 +73,31 @@ class FuzzyField:
         When FuzzyField instances are used as class attributes, the uniqueness
         check is performed across all instances of the host class and its
         subclasses.
-    :ivar str name:
-        Name of the field being validated.
-        This is set automatically:
-
-        - when FuzzyField instances are used as class attributes, by
-          :meth:`FuzzyField.__set_name__`, or by :meth:`FuzzyField.__set__`
-          for instance-specific fuzzyfields
-        - when FuzzyField instances are used within the :doc:`dictreader`
-          framework, by :meth:`DictReader.__init__`
-    :ivar bool required:
-        as the parameter
-    :ivar default:
-        as the parameter
-    :ivar str description:
-        as the parameter
-    :ivar bool unique:
-        as the parameter
-    :ivar set seen_values:
-        Record of already encountered values.
-        This attribute only exists if unique=True.
-    :ivar owner:
-        The class to which the FuzzyField is attached to as a descriptor.
-        None when used within the :doc:`dictreader` framework.
     """
+
+    name: Union[str, None]
+    """Name of the field being validated.
+    This is set automatically:
+
+    - when FuzzyField instances are used as class attributes, by
+      :meth:`FuzzyField.__set_name__`, or by :meth:`FuzzyField.__set__`
+      for instance-specific fuzzyfields
+    - when FuzzyField instances are used within the :doc:`dictreader`
+      framework, by :meth:`DictReader.__init__`
+    """
+    required: bool
+    default: Any
+    description: str
+    unique: bool
+    seen_values: set
+    """Record of already encountered values.
+    This attribute only exists if unique=True.
+    """
+    owner: Any
+    """The class to which the FuzzyField is attached to as a descriptor.
+    None when used within the :doc:`dictreader` framework.
+    """
+
     def __init__(self, *, required: bool = True, default: Any = None,
                  description: str = None, unique: bool = False):
         self.required = required

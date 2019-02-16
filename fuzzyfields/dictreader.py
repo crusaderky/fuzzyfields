@@ -35,7 +35,7 @@ class DictReader:
         In case errors != 'raise' and a FuzzyField raises an exception,
 
         - if the field is required, the entire line is discarded
-        - otherwise, the field is replaced with its default value\
+        - otherwise, the field is replaced with its default value
 
         Alternatively to passing this parameter, you may create a subclass of
         DictReader and override the DictReader.errors class attribute.
@@ -46,10 +46,6 @@ class DictReader:
 
         Alternatively to passing this parameter, you may create a subclass of
         DictReader and override the DictReader.name_map class attribute.
-
-    :ivar int record_num:
-        current record (counting from 0), or -1 if the iteration hasn't started
-        yet.
     """
     fields: Dict[str, FuzzyField] = {}
     """Class-level map of ``{field name: FuzzyField}``. Overriding this dict is
@@ -70,6 +66,11 @@ class DictReader:
     a subset of the keys in the fields dict.
     You can add to this dict in an instance-specific way by setting the
     matching ``__init__`` parameter.
+    """
+
+    record_num: int
+    """Current record (counting from 0), or -1 if the iteration hasn't started
+    yet.
     """
 
     def __init_subclass__(cls):

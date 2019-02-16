@@ -1,3 +1,3 @@
 DictReader
 ==========
-.. autoclass: fuzzyfields.DictReader
+.. autoclass:: fuzzyfields.DictReader
