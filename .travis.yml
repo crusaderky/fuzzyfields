@@ -12,6 +12,7 @@ matrix:
   include:
   - env: CONDA_ENV=flake8
   - env: CONDA_ENV=minimal
+  - env: CONDA_ENV=no_optional_deps
   - env: CONDA_ENV=py36
   - env: CONDA_ENV=py37
   - env: CONDA_ENV=conda-forge

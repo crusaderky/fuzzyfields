@@ -2,9 +2,9 @@ name: test_env
 channels:
   - anaconda
 dependencies:
-  - python=3.5
+  - python=3.6.0
   - pytest=3.6
   - coveralls
   - pytest-cov
-  - numpy=1.13
-  - pandas=0.21
+  - numpy=1.11
+  - pandas=0.23

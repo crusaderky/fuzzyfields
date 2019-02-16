@@ -1,5 +1,5 @@
-fuzzyfields: TODO description
-============================
+fuzzyfields: Input validation for the real world
+================================================
 
 TODO
 
@@ -7,7 +7,9 @@ TODO
 
    installing
    whats-new
-   api/fuzzyfields
+   api/fields
+   api/dictreader
+   api/errors
 
 
 License

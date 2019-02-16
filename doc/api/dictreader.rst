@@ -1,0 +1,3 @@
+DictReader
+==========
+.. autoclass: fuzzyfields.DictReader

@@ -2,23 +2,30 @@
 
 Installation
 ============
+To install the package:
+
+:command:`pip install fuzzyfields`
+
+or
+
+:command:`conda install -c conda-forge fuzzyfields`
+
 
 Required dependencies
 ---------------------
 
-- Python 3.5 or later
-TODO mandatory?
-- numpy
-- pandas
+- Python 3.6 or later
+
+
+Additional dependencies
+-----------------------
+- `pandas <https://pandas.pydata.org>`_
+  (needed by :class:`~fuzzyfields.Timestamp`)
 
 
 Testing
--------
+=======
 
-To run the test suite after installing fuzzyfields, first install (via pypi or conda)
-
-- `py.test <https://pytest.org>`__: Simple unit testing library
-
-and run
-``py.test --pyargs fuzzyfields``.
-
+To run the test suite after installing fuzzyfields, install
+`py.test <https://pytest.org>`_ (via pypi or conda)
+and run ``py.test``.

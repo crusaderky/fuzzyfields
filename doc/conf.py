@@ -45,10 +45,6 @@ extlinks = {
 
 autosummary_generate = True
 
-# numpydoc settings
-#numpydoc_class_members_toctree = True
-#numpydoc_show_class_members = False
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -63,7 +59,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'fuzzyfields'
-copyright = '2018-%s, fuzzyfields Developers' % datetime.datetime.now().year
+copyright = '2014-%s, fuzzyfields Developers' % datetime.datetime.now().year
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -154,7 +150,7 @@ html_static_path = ['_static']
 # https://github.com/ipython/ipython/issues/8733
 # becomes obsolete when we can pin ipython>=5.2; see doc/environment.yml
 ipython_savefig_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                   '_build','html','_static')
+                                   '_build', 'html', '_static')
 if not os.path.exists(ipython_savefig_dir):
     os.makedirs(ipython_savefig_dir)
 
@@ -270,8 +266,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'fuzzyfields', 'fuzzyfields Documentation',
-   'fuzzyfields Developers', 'fuzzyfields', 'Fuzzy Fields',
-   'Miscellaneous'),
+   'fuzzyfields Developers', 'fuzzyfields',
+   'input validation for the real world', 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

@@ -30,10 +30,13 @@ CLASSIFIERS = [
     'Topic :: Scientific/Engineering',
 ]
 
-INSTALL_REQUIRES = [
-    'pandas >= 0.21',
-    'numpy >= 1.13',
-]
+INSTALL_REQUIRES = []
+EXTRAS_REQUIRE = {
+    'Timestamp': [
+        'pandas >= 0.23',
+        'numpy >= 1.11',
+    ]
+}
 TESTS_REQUIRE = ['pytest >= 3.6']
 
 DESCRIPTION = "fuzzyfields"
@@ -123,7 +126,9 @@ setup(name=DISTNAME,
       description=DESCRIPTION,
       long_description=LONG_DESCRIPTION,
       install_requires=INSTALL_REQUIRES,
+      extras_require=EXTRAS_REQUIRE,
       tests_require=TESTS_REQUIRE,
+      python_requires='>=3.6',
       url=URL,
       packages=find_packages(),
       package_data={'fuzzyfields': ['tests/data/*']})
