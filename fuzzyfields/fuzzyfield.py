@@ -1,57 +1,7 @@
-import decimal
-import math
 import pickle
-from typing import Any, Union
+from typing import Any, Optional
 from .errors import MissingFieldError, DuplicateError
-
-NA_VALUES = {
-    '',
-    '#N/A',
-    '#N/A N/A',
-    '#NA',
-    '-1.#IND',
-    '-1.#QNAN',
-    '-NaN',
-    '-nan',
-    '1.#IND',
-    '1.#QNAN',
-    'N/A',
-    'NA',
-    'NULL',
-    'NaN',
-    'n/a',
-    'nan',
-    'null',
-    'N.A.',
-    'N.A',
-}
-"""String values interpreted as empty. This is the same set used by
-:func:`pandas.read_csv`, with some additions.
-"""
-
-try:
-    import numpy
-    import pandas
-
-    def isnull(x) -> bool:
-        """Reimplementation of :func:`pandas.isnull`, with the following
-        differences:
-
-        - doesn't mandatorily require numpy/pandas
-        - scalar only
-        - guaranteed to return a single bool
-        - supports decimal.Decimal
-        """
-        if isinstance(x, (list, numpy.ndarray)):
-            return False
-        if isinstance(x, (float, decimal.Decimal)):
-            return math.isnan(x)
-        return pandas.isnull(x)
-
-except ImportError:
-    def isnull(x) -> bool:
-        return x is None or (
-            isinstance(x, (float, decimal.Decimal)) and math.isnan(x))
+from .tools import NA_VALUES, isnull
 
 
 class FuzzyField:
@@ -71,11 +21,11 @@ class FuzzyField:
     :param bool unique:
         Set to True to raise an error in case of duplicate values.
         When FuzzyField instances are used as class attributes, the uniqueness
-        check is performed across all instances of the host class and its
+        check is performed across all instances of the owner class and its
         subclasses.
     """
 
-    name: Union[str, None]
+    name: Optional[str]
     """Name of the field being validated.
     This is set automatically:
 
@@ -149,7 +99,7 @@ class FuzzyField:
 
             .. note::
                Do not return self.default. This is left to
-               :meth:`FuzzyField.__set__` and :class:`DictReader`.
+               :meth:`~FuzzyField.postprocess`.
                Instead, for any value that equates to null/blank, always
                return None.
         :raises MalformedFieldError, FieldTypeError:
@@ -196,14 +146,13 @@ class FuzzyField:
         """On-the fly parsing and validation for a local variable.
 
         This is a wrapper around :meth:`~FuzzyField.preprocess` ->
-         :meth:`~FuzzyField.validate` -> :meth:`~FuzzyField.postprocess`.
+        :meth:`~FuzzyField.validate` -> :meth:`~FuzzyField.postprocess`.
 
         :param value:
-            raw value to be preprocessed and validated
-        :param ff_cls:
-            subclass of :class:`FuzzyField` that will perform the validation
-        :param kwargs:
-            init parameters for the ff_cls
+            Raw value to be preprocessed and validated
+        :returns:
+            Fully preprocessed value, or self.default if the value is null-like
+            and required=False
         """
         value = self.preprocess(value)
         if value is not None:
@@ -232,7 +181,7 @@ class FuzzyField:
 
     def __repr__(self) -> str:
         """Fancy print the description of the fuzzyfield and all the
-        relevant settings. Used when building the docstring of the host class.
+        relevant settings. Used when building the docstring of the owner class.
 
         Internally invokes :meth:`FuzzyField.sphinxdoc`.
         """
@@ -259,21 +208,35 @@ class FuzzyField:
         """Retrieve stored value of the property.
 
         :returns:
-            stored value, or self.default is the stored value is None
+            Stored value, or self.default is the stored value is None.
             When invoked as a class property, return the FuzzyField object
             itself.
 
         One may wish to postprocess the return value before it is returned.
+        This can be particularly useful when one wants to alter the output of
+        a field depending on the output of other attributes of the instance
+        that may not be available when :meth:`FuzzyField.validate` is executed.
         This can be achieved by overriding this method as follows::
 
-            def __get__(self, instance, owner):
-                value = super().__get__(instance, owner)
-                if value is self:
-                    return self
+            >>> from fuzzyfields import String
 
-                # postprocess value here
+            >>> class Dog(String):
+            ...    def __get__(self, instance, owner):
+            ...        value = super().__get__(instance, owner)
+            ...        if value is self:
+            ...            return self
+            ...
+            ...        return f"{value}, {instance.name}'s dog!'"
 
-                return value
+            >>> class Owner:
+            ...    name = String()
+            ...    dog = Dog()
+
+            >>> human = Owner()
+            >>> human.dog = 'Lassie'
+            >>> human.name = 'Bob'
+            >>> human.dog
+            "Lassie, Bob's dog!"
         """
         assert self.name
         assert owner is self.owner
@@ -319,7 +282,7 @@ class FuzzyField:
             instance.__dict__[self.name] = fuzzyfield.parse(value)
 
     def __delete__(self, instance) -> None:
-        """Delete the attribute on an instance 'instance' of the owner class.
+        """Delete the field value on an instance of the owner class.
         """
         assert self.name
 

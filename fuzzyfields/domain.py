@@ -1,6 +1,6 @@
 import pickle
 from typing import Any, Iterable
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .errors import DomainError, FieldTypeError, MalformedFieldError
 from .numbers import Float
 

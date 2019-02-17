@@ -8,7 +8,7 @@ except ImportError:  # pragma: no cover
                       'pip install -e .')
 
 
-from .core import FuzzyField  # noqa: F401
+from .fuzzyfield import FuzzyField  # noqa: F401
 from .dictreader import DictReader  # noqa: F401
 from .errors import (ValidationError, MalformedFieldError,  # noqa: F401
                      FieldTypeError, DuplicateError, DomainError,  # noqa: F401

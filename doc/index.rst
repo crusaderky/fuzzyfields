@@ -7,10 +7,7 @@ TODO
 
    installing
    whats-new
-   api/fields
-   api/dictreader
-   api/errors
-
+   api/index
 
 License
 -------

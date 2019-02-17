@@ -1,6 +1,6 @@
 import re
 from typing import Any
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .errors import FieldTypeError, MalformedFieldError
 
 # Backwards compatibility with Python 3.6

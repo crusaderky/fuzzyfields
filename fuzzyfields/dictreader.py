@@ -1,6 +1,6 @@
 import logging
 from typing import Any, Dict, Union, Callable, Iterable
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .errors import ValidationError
 
 
@@ -11,7 +11,7 @@ class DictReader:
 
     :param iterable:
         an iterable object, e.g. :class:`csv.DictReader`, that yields dicts of
-        {field : value}
+        ``{field : value}``.
 
     :param fields:
         dict of instance-specific :class:`FuzzyField` objects.
@@ -26,7 +26,7 @@ class DictReader:
         'raise' (default)
             raise a :class:`ValidationError` on the first line
         'critical', 'error', 'warning', 'info', 'debug'
-            log the error with the mathing functions in :mod:`logging` and
+            log the error with the matching functions in :mod:`logging` and
             continue
         callable(:class:`~fuzzyfields.ValidationError`)
             invoke a custom callable and continue (unless it itself raises an
@@ -41,7 +41,7 @@ class DictReader:
         DictReader and override the DictReader.errors class attribute.
 
     :param dict name_map:
-        optional dict of {from name: to name} renames, where each pair
+        optional dict of ``{from name: to name}`` renames, where each pair
         performs a key replacement.
 
         Alternatively to passing this parameter, you may create a subclass of
@@ -57,8 +57,8 @@ class DictReader:
     """
 
     errors: Union[str, Callable[[Exception], Any]] = 'raise'
-    """Class-level error handling system. See class-level documentation.
-    Can be overridden through the matching ``__init__`` parameter.
+    """Class level error handling system. Can be overridden with an
+    instance-specific value through the matching ``__init__`` parameter.
     """
 
     name_map: Dict[str, str] = {}
@@ -147,7 +147,7 @@ class DictReader:
 
     def __iter__(self):
         """Draw dicts from the underlying iterable and yield dicts of
-         {field name : parsed value}
+         ``{field name : parsed value}``.
         """
         for self.record_num, row in enumerate(self.iterable):
 
@@ -210,17 +210,18 @@ class DictReader:
         """Return line number of underlying file.
 
         :raises AttributeError:
-            if the underlying iterator is not a :class:`csv.reader`,
+            if the underlying iterator is not a :func:`csv.reader`,
             :class:`csv.DictReader`, or another duck-type compatible class
         """
         return self.iterable.line_num
 
-    def preprocess_row(self, row) -> Dict[str, Any]:
+    def preprocess_row(self, row: Any) -> Dict[str, Any]:
         """Give child classes an opportunity to pre-process every row before
         feeding it to the FuzzyFields. This allows handling special cases.
 
         You must use this method to manipulate the row if the underlying
-        iterator does not natively yields dicts, e.g. a csv.reader object.
+        iterator does not natively yields dicts, e.g. a :func:`csv.reader`
+        object.
 
         :param row:
             The row as read by self.iterable, with all names and

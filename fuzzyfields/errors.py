@@ -6,7 +6,7 @@
    So one must be very careful to allow the __init__ method to work with a
    single, dummy value.
 """
-from typing import Any, Union
+from typing import Any, Optional
 
 
 class ValidationError(Exception):
@@ -16,22 +16,22 @@ class ValidationError(Exception):
         Field name, or None if the FuzzyField is used neither as a class
         property nor within a :class:`DictReader`
     """
-    name: Union[str, None]
+    name: Optional[str]
     """Field name, or None if the FuzzyField is used neither as a class
     property nor within a :class:`DictReader`
     """
 
-    line_num: Union[int, None]
+    line_num: Optional[int]
     """Line number of the underlying file, if available, otherwise None.
     Set by :class:`DictReader`; None otherwise.
     """
 
-    record_num: Union[int, None]
+    record_num: Optional[int]
     """Record number as counted by :class:`DictReader`, counting from 0.
     None when not using a :class:`DictReader`.
     """
 
-    def __init__(self, name: Union[str, None] = None):
+    def __init__(self, name: Optional[str] = None):
         self.name = name
         self.line_num = None
         self.record_num = None
@@ -58,7 +58,7 @@ class MalformedFieldError(ValidationError):
     value: Any
     expect: Any
 
-    def __init__(self, name: Union[str, None], value: Any = None,
+    def __init__(self, name: Optional[str], value: Any = None,
                  expect: Any = None):
         super().__init__(name)
         self.value = value
@@ -75,7 +75,7 @@ class FieldTypeError(ValidationError):
     value: Any
     expect: Any
 
-    def __init__(self, name: Union[str, None], value: Any = None,
+    def __init__(self, name: Optional[str], value: Any = None,
                  expect: Any = None):
         super().__init__(name)
         self.value = value
@@ -92,7 +92,7 @@ class DuplicateError(ValidationError):
     """
     value: Any
 
-    def __init__(self, name: Union[str, None], value: Any = None):
+    def __init__(self, name: Optional[str], value: Any = None):
         super().__init__(name)
         self.value = value
 
@@ -106,7 +106,7 @@ class DomainError(ValidationError):
     value: Any
     choices: Any
 
-    def __init__(self, name: Union[str, None], value: Any = None,
+    def __init__(self, name: Optional[str], value: Any = None,
                  choices: Any = None):
         super().__init__(name)
         self.value = value

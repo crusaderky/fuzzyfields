@@ -1,6 +1,5 @@
 Fields
 ======
-.. autoclass:: fuzzyfields.FuzzyField
 .. autoclass:: fuzzyfields.String
 .. autoclass:: fuzzyfields.RegEx
 .. autoclass:: fuzzyfields.ISOCodeAlpha

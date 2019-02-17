@@ -2,8 +2,9 @@ import decimal
 import math
 import re
 from typing import Any, Union
-from .core import FuzzyField, NA_VALUES
+from .fuzzyfield import FuzzyField
 from .errors import DomainError, FieldTypeError, MalformedFieldError
+from .tools import NA_VALUES
 
 
 try:

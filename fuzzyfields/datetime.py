@@ -1,7 +1,7 @@
 import datetime
 import warnings
 from typing import Dict, Any
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .errors import FieldTypeError, MalformedFieldError
 
 
@@ -9,9 +9,9 @@ class Timestamp(FuzzyField):
     """Parse and check various date and time formats
 
     .. note::
-       This FuzzyField requires pandas.
+       This field requires `pandas <https://pandas.pydata.org>`_.
 
-    :param output:
+    :param str output:
         Format of the output value. Possible values are:
 
         'pandas' (default)
