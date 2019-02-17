@@ -1,4 +1,4 @@
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .numbers import Integer
 from .errors import FieldTypeError, MalformedFieldError
 

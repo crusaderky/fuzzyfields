@@ -1,6 +1,6 @@
 import pickle
 from typing import Any, Iterable
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .errors import DomainError, FieldTypeError, MalformedFieldError
 from .numbers import Float
 
@@ -13,7 +13,6 @@ class Domain(FuzzyField):
 
     :param choices:
         collection of acceptable values. The default needs not be included.
-
     :param bool case_sensitive:
         ignore case when validating string input.
         The output will be converted to the case listed in choices.
@@ -36,14 +35,12 @@ class Domain(FuzzyField):
         future.
 
     :param kwargs:
-        extra parameters for :meth:`FuzzyField.__init__`
-    :ivar choices:
-        as the parameter
-    :ivar bool case_sensitive:
-        as the parameter
-    :ivar bool passthrough:
-        as the parameter
+        extra parameters for :class:`FuzzyField`
     """
+    choices: Iterable
+    case_sensitive: bool
+    passthrough: bool
+
     def __init__(self, choices: Iterable, *, case_sensitive: bool = True,
                  passthrough: bool = False, **kwargs):
         super().__init__(**kwargs)

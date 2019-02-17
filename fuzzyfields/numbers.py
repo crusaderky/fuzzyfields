@@ -2,8 +2,9 @@ import decimal
 import math
 import re
 from typing import Any, Union
-from .core import FuzzyField, NA_VALUES
+from .fuzzyfield import FuzzyField
 from .errors import DomainError, FieldTypeError, MalformedFieldError
+from .tools import NA_VALUES
 
 
 try:
@@ -15,14 +16,14 @@ except ImportError:
 
 class Float(FuzzyField):
     """Convert a string representing a number, an int, or other numeric types
-    (e.g. :class:`numpy.float64`) to float.
+    (e.g. `numpy.float64`) to float.
 
     :param default:
         Default value. Unlike in all other FuzzyFields, if omitted it is NaN
         instead of None.
-    :param number min_value:
+    :param min_value:
         Minimum allowable value. Omit for no minimum.
-    :param number max_value:
+    :param max_value:
         Maximum allowable value. Omit for no maximum.
     :param bool allow_min:
         If True, test that value >= min_value, otherwise value > min_value
@@ -31,7 +32,7 @@ class Float(FuzzyField):
     :param bool allow_zero:
         If False, test that value != 0
     :param dict kwargs:
-        parameters to be passed to :meth:`FuzzyField.__init__`
+        parameters to be passed to :class:`FuzzyField`
     """
     min_value: Union[int, float]
     max_value: Union[int, float]
@@ -167,7 +168,7 @@ class Integer(Float):
 
     Valid values are:
 
-    - anything that is parsed by :func:`int`
+    - anything that is parsed by the `int` constructor.
     - floats with strictly trailing zeros (e.g. 1.0000)
     - scientific format as long as there are no digits below 10^0 (1.23e2)
 

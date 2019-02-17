@@ -1,7 +1,13 @@
 import re
 from typing import Any
-from .core import FuzzyField
+from .fuzzyfield import FuzzyField
 from .errors import FieldTypeError, MalformedFieldError
+
+# Backwards compatibility with Python 3.6
+try:
+    re.Pattern
+except AttributeError:
+    re.Pattern = type(re.compile(''))
 
 
 class String(FuzzyField):
@@ -35,10 +41,11 @@ class RegEx(FuzzyField):
     :param str pattern:
         regular expression pattern string
     :param kwargs:
-        parameters to be passed to :meth:`FuzzyField.__init__`
-    :ivar re.Pattern pattern:
-        precompiled regex object
+        parameters to be passed to :class:`FuzzyField`
     """
+    pattern: re.Pattern
+    "Precompiled regular expression"
+
     def __init__(self, pattern: str, **kwargs):
         super().__init__(**kwargs)
         self.pattern = re.compile(pattern)
@@ -70,10 +77,8 @@ class ISOCodeAlpha(FuzzyField):
 
     :param int chars:
         Number of characters of the code (default: 3)
-    :ivar int chars:
-        as the parameter
     :param kwargs:
-        parameters to be passed to :meth:`FuzzyField.__init__`
+        parameters to be passed to :class:`FuzzyField`
     """
     chars: int
 

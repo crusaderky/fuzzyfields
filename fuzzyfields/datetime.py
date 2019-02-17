@@ -1,6 +1,7 @@
 import datetime
 import warnings
-from .core import FuzzyField
+from typing import Dict, Any
+from .fuzzyfield import FuzzyField
 from .errors import FieldTypeError, MalformedFieldError
 
 
@@ -8,9 +9,9 @@ class Timestamp(FuzzyField):
     """Parse and check various date and time formats
 
     .. note::
-       This FuzzyField requires pandas.
+       This field requires `pandas <https://pandas.pydata.org>`_.
 
-    :param output:
+    :param str output:
         Format of the output value. Possible values are:
 
         'pandas' (default)
@@ -25,12 +26,18 @@ class Timestamp(FuzzyField):
         'datetime'
             return type is :class:`datetime.datetime`
         'numpy'
-            return type is :class:`numpy.datetime64`
+            return type is `numpy.datetime64`
         any other string
             anything else will be interpreted as a format string for
-            :func:`pandas.tslib.Timestamp.strftime`;
+            :meth:`pandas.Timestamp.strftime`;
             e.g. ``%Y/%m/%d`` will produce a string YYYY/MM/DD.
-    :param required, default, description, unique:
+    :param bool required:
+        See :class:`FuzzyField`
+    :param default:
+        See :class:`FuzzyField`
+    :param str description:
+        See :class:`FuzzyField`
+    :param bool unique:
         See :class:`FuzzyField`
     :param kwargs:
         Parameters to be passed to :func:`pandas.to_datetime`.
@@ -41,6 +48,9 @@ class Timestamp(FuzzyField):
            whereas the default for :func:`pandas.to_datetime` is dayfirst=False
            (American format MM/DD/YYYY).
     """
+    output: str
+    pandas_kwargs: Dict[str, Any]
+
     def __init__(self, *, output: str = 'pandas', required: bool = True,
                  default=None, description: str = None, unique: bool = False,
                  **kwargs):
@@ -53,7 +63,7 @@ class Timestamp(FuzzyField):
                              "or format string; got %s" % output)
         self.output = output
         kwargs.setdefault('dayfirst', True)
-        self.pandas_args = kwargs
+        self.pandas_kwargs = kwargs
 
     def validate(self, value):
         """Validate and convert input
@@ -66,7 +76,7 @@ class Timestamp(FuzzyField):
         import pandas
 
         try:
-            value = pandas.to_datetime(value, **self.pandas_args)
+            value = pandas.to_datetime(value, **self.pandas_kwargs)
         except pandas.errors.OutOfBoundsDatetime as e:
             # The timestamp has been parsed and is stored in the exception
             # message; it just can't be coerced into a pandas.Timestamp
